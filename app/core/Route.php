@@ -20,6 +20,11 @@ class Route
         self::$routes['get'][$path] = $callback;
     }
 
+    public static function post($path, $callback)
+    {
+        self::$routes['post'][$path] = $callback;
+    }
+
     public function resolve()
     {
         $path = $this->request->getPath();
@@ -33,9 +38,15 @@ class Route
         }
 
         if (is_string($callback)) {
-            return require_once __DIR__ . "/../views/$callback.php";
+            return App::$app->view->renderView($callback);
         }
 
-        call_user_func($callback);
+        if (is_array($callback)) {
+            // $callback[0] = new $callback[0]();
+            App::$app->controller = new $callback[0]();
+            $callback[0] = App::$app->controller;
+        }
+
+        return call_user_func($callback, $this->request);
     }
 }

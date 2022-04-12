@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500&display=swap');
+:root {
+    --body-font: 'Poppins';
+    --text-normal: 1rem;
+    --text-small: .85rem;
+
+    --color-border: #1a73e8;
+    --color-bg:whitesmoke;
+
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--color-bg);
+    font-family: var(--body-font);
+}
+
+.card {
+    min-width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-weight: 500;
+    margin-bottom: 3rem;
+}
+
+.form-control {
+    width: 350px;
+    padding: 2.5rem 2rem;
+    border-radius: .5rem;
+    background: var(--color-bg);
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, .35),
+        inset 10px 10px 25px rgba(255, 255, 255, 1);
+}
+
+.field {
+    position: relative;
+}
+
+.form-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: .5rem;
+    background: rgba(0, 0, 0, .085);
+    margin-bottom: 1rem;
+    font-size: var(--text-small);
+    border-bottom: 2px solid transparent;
+    border-right: 2px solid transparent;
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    z-index: 1;
+    transition: border-bottom .2s ease,
+        border-right .2s ease .1s,
+        border-top .2s ease .2s,
+        border-left .2s ease .3s;
+}
+
+.form-label {
+    position: absolute;
+    top: .4rem;
+    left: 1rem;
+    font-size: var(--text-normal);
+    font-weight: 300;
+    transition: .3s ease;
+}
+
+.form-input:focus {
+    background: none;
+    border-color: var(--color-border);
+}
+
+.form-input:focus+.form-label {
+    top: -.5rem;
+    left: .8rem;
+    font-size: .75rem;
+    font-weight: 500;
+    background: whitesmoke;
+    padding: 0 5px;
+}
+
+.form-input:not(:placeholder-shown).form-input:not(:focus) {
+    background: none;
+    border-color: #3b80ee;
+}
+
+.form-input:not(:placeholder-shown).form-input:not(:focus)+.form-label {
+    top: -.5rem;
+    left: .8rem;
+    background: #fff;
+    color: blue;
+    font-size: .75rem;
+    font-weight: 500;
+    padding: 0 5px;
+    z-index: 10;
+}
+
+button {
+    width: 100%;
+    border: none;
+    background: var(--color-border);
+    border-radius: 5px;
+    padding: .5rem 2rem;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:focus {
+    outline: none;
+    letter-spacing: 2px;
+}
+
+button:focus,
+button:hover {
+    background: #3b80ee;
+}
