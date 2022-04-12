@@ -22,4 +22,14 @@ class RegisterModel extends Model
             'cpassword' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
         ];
     }
+
+    public function label(): array
+    {
+        return [
+            'username' => 'Username',
+            'email' => 'Email',
+            'password' => 'Password',
+            'cpassword' => 'Confirm Password',
+        ];
+    }
 }

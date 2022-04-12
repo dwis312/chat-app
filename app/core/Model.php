@@ -21,6 +21,8 @@ abstract class Model
 
     abstract public function rules(): array;
 
+    abstract public function label(): array;
+
     public function valiadate()
     {
         foreach ($this->rules() as $attribute => $rules) {
@@ -35,7 +37,7 @@ abstract class Model
                     $this->addError($attribute, self::RULE_REQUIRED);
                 }
 
-                if ($ruleName === self::RULE_EMAIL && filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->addError($attribute, self::RULE_EMAIL);
                 }
 
