@@ -2,10 +2,13 @@
 :root {
     --body-font: 'Poppins';
     --text-normal: 1rem;
-    --text-small: .85rem;
+    --text-small: .875rem;
+    --text-smaller: .65rem;
 
     --color-border: #1a73e8;
     --color-bg:whitesmoke;
+    --color-field:rgba(0, 0, 0, 0.041);
+    --color-danger:rgb(235, 122, 122);
 
 }
 * {
@@ -52,9 +55,10 @@ h1 {
     outline: none;
     border-radius: 5px;
     padding: .5rem;
-    background: rgba(0, 0, 0, .085);
+    background: var(--color-field);
     margin-bottom: 1rem;
     font-size: var(--text-small);
+    font-family: var(--body-font);
     border-bottom: 2px solid transparent;
     border-right: 2px solid transparent;
     border-top: 2px solid transparent;
@@ -68,7 +72,7 @@ h1 {
 
 .form-label {
     position: absolute;
-    top: .4rem;
+    top: .5rem;
     left: 1rem;
     font-size: var(--text-normal);
     font-weight: 300;
@@ -85,24 +89,74 @@ h1 {
     left: .8rem;
     font-size: .75rem;
     font-weight: 500;
-    background: whitesmoke;
+    background: var(--color-bg);
     padding: 0 5px;
 }
 
 .form-input:not(:placeholder-shown).form-input:not(:focus) {
     background: none;
-    border-color: #3b80ee;
+    border-color: var(--color-border);
 }
 
 .form-input:not(:placeholder-shown).form-input:not(:focus)+.form-label {
     top: -.5rem;
     left: .8rem;
-    background: #fff;
-    color: blue;
+    background: var(--color-bg);
+    color: var(--color-border);
     font-size: .75rem;
     font-weight: 500;
     padding: 0 5px;
     z-index: 10;
+}
+
+.form-input.is-invalid {
+    background: none;
+    border-color: var(--color-danger);
+}
+
+.form-input.is-invalid+ .form-label,
+.form-input:focus.is-invalid+ .form-label {
+    color: var(--color-danger);
+    font-style: italic;
+}
+
+.form-input:not(:placeholder-shown).is-invalid.form-input:not(:focus).is-invalid {
+    background: none;
+    border-color: var(--color-danger);
+}
+
+.form-input:not(:placeholder-shown).is-invalid.form-input:not(:focus).is-invalid+ .form-label {
+    color: var(--color-danger);
+    font-style: italic;
+}
+
+.invalid-feedback {
+    display: flex;
+    display: none;
+    flex-direction: column;
+    margin-bottom: .85rem;
+}
+
+.invalid-feedback.show {
+    display: flex;
+}
+
+.error-icon {
+    position: absolute;
+    color: var(--color-danger);
+    font-size: var(--text-small);
+    font-weight: 600;
+    right: .8rem;
+    top: .5rem;
+}
+
+.error-message {
+    position: absolute;
+    top: 2.75rem;
+    right: .8rem;
+    font-style: italic;
+    font-size: var(--text-smaller);
+    color: var(--color-danger);
 }
 
 button {
@@ -112,6 +166,7 @@ button {
     border-radius: 5px;
     padding: .5rem 2rem;
     color: #fff;
+    font-size: var(--text-normal);
     font-weight: 600;
     cursor: pointer;
     transition: .3s;
@@ -124,5 +179,5 @@ button:focus {
 
 button:focus,
 button:hover {
-    background: #3b80ee;
+    background: #0748b1;
 }
