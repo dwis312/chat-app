@@ -2,6 +2,7 @@
 
 class View
 {
+
     public function renderView($view, $params = [])
     {
         $layout = $this->renderLayout();
@@ -12,6 +13,7 @@ class View
     protected function renderLayout()
     {
         $layout = App::$app->controller->layout;
+
         ob_start();
         include_once App::$ROOT_DIR . "/app/views/layouts/$layout.php";
         return ob_get_clean();

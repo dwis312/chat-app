@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/Request.php";
 require_once __DIR__ . "/Response.php";
+require_once __DIR__ . "/Controller.php";
 
 class Route
 {
@@ -42,7 +43,6 @@ class Route
         }
 
         if (is_array($callback)) {
-            // $callback[0] = new $callback[0]();
             App::$app->controller = new $callback[0]();
             $callback[0] = App::$app->controller;
         }

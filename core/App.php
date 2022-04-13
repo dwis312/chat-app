@@ -4,6 +4,7 @@ require_once __DIR__ . "/Route.php";
 require_once __DIR__ . "/Request.php";
 require_once __DIR__ . "/Response.php";
 require_once __DIR__ . "/View.php";
+require_once __DIR__ . "/Controller.php";
 
 class App
 {
