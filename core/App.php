@@ -5,6 +5,7 @@ require_once __DIR__ . "/Request.php";
 require_once __DIR__ . "/Response.php";
 require_once __DIR__ . "/View.php";
 require_once __DIR__ . "/Controller.php";
+require_once __DIR__ . "/../db/Database.php";
 
 class App
 {
@@ -18,7 +19,9 @@ class App
     public View $view;
     public Controller $controller;
 
-    public function __construct($rootPath)
+    public Database $db;
+
+    public function __construct($rootPath, array $config)
     {
         self::$ROOT_DIR = $rootPath;
         self::$app = $this;
@@ -27,6 +30,8 @@ class App
         $this->request = new Request();
         $this->response = new Response();
         $this->route = new Route($this->request, $this->response);
+
+        $this->db = new Database($config['db']);
     }
 
     public function run()
