@@ -6,6 +6,7 @@ require_once __DIR__ . "/Response.php";
 require_once __DIR__ . "/View.php";
 require_once __DIR__ . "/Controller.php";
 require_once __DIR__ . "/../db/Database.php";
+require_once __DIR__ . "/../db/Migrations.php";
 
 class App
 {
@@ -18,6 +19,7 @@ class App
     public Response $response;
     public View $view;
     public Controller $controller;
+    public Migrations $migrations;
 
     public Database $db;
 
@@ -32,6 +34,7 @@ class App
         $this->route = new Route($this->request, $this->response);
 
         $this->db = new Database($config['db']);
+        $this->migrations = new Migrations();
     }
 
     public function run()
@@ -47,5 +50,10 @@ class App
     public function setController(Controller $controller): void
     {
         $this->controller = $controller;
+    }
+
+    public function migrations()
+    {
+        $this->migrations->applyMigrations();
     }
 }
