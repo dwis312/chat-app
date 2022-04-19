@@ -2,7 +2,7 @@
 
 require_once dirname(dirname(__DIR__)) . "/core/Controller.php";
 require_once dirname(dirname(__DIR__)) . "/core/Request.php";
-require_once dirname(dirname(__DIR__)) . "/app/models/RegisterModel.php";
+require_once dirname(dirname(__DIR__)) . "/app/models/Users.php";
 require_once dirname(dirname(__DIR__)) . "/core/form/Form.php";
 require_once dirname(dirname(__DIR__)) . "/core/form/Field.php";
 
@@ -16,24 +16,26 @@ class SiteController extends Controller
 
     public function register(Request $request)
     {
-        $model = new RegisterModel();
+        $user = new Users();
 
         if ($request->post()) {
-            $model->loadData($request->getData());
+            $user->loadData($request->getData());
 
-            if ($model->valiadate()) {
-                return "Success";
+            if ($user->valiadate() && $user->register()) {
+                App::$app->session->setFlash('success', 'Thanks for registering');
+                App::$app->response->redirect('/');
+                exit;
             }
 
             $this->setLayout('main');
             return $this->render('register', [
-                'model' => $model
+                'model' => $user
             ]);
         }
 
         $this->setLayout('main');
         return $this->render('register', [
-            'model' => $model
+            'model' => $user
         ]);
     }
 

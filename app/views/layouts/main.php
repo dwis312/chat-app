@@ -14,6 +14,12 @@
 
 <body>
 
+    <?php if (App::$app->session->getFlash('success')) : ?>
+        <div class="flash">
+            <span class="fls-txt"><?= App::$app->session->getFlash('success'); ?></span>
+        </div>
+    <?php endif; ?>
+
     {{content}}
 
 </body>

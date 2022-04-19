@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . "/Session.php";
 require_once __DIR__ . "/Route.php";
 require_once __DIR__ . "/Request.php";
 require_once __DIR__ . "/Response.php";
@@ -17,6 +18,7 @@ class App
     public Route $route;
     public Request $request;
     public Response $response;
+    public Session $session;
     public View $view;
     public Controller $controller;
     public Migrations $migrations;
@@ -31,6 +33,7 @@ class App
         $this->view = new View();
         $this->request = new Request();
         $this->response = new Response();
+        $this->session = new Session();
         $this->route = new Route($this->request, $this->response);
 
         $this->db = new Database($config['db']);

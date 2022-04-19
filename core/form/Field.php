@@ -40,7 +40,7 @@ class Field
             $this->attribute, // input id
             $this->value, // input value  
             $this->attribute, // label for
-            $this->model->label()[$this->attribute], // label innerhtml
+            $this->model->getLabel($this->attribute), // label innerhtml
             $this->model->hasError($this->attribute) ? 'show' : '', // invalid-feedback 
             $this->model->getError($this->attribute) // invalid-feedback small
         );
