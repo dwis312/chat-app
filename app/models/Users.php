@@ -1,7 +1,8 @@
 <?php
 require_once dirname(dirname(__DIR__)) . "/core/DbModel.php";
+require_once dirname(dirname(__DIR__)) . "/core/UserModel.php";
 
-class Users extends DbModel
+class Users extends UserModel
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
@@ -16,6 +17,16 @@ class Users extends DbModel
     public function tablename(): string
     {
         return 'users';
+    }
+
+    public function primaryKey(): string
+    {
+        return 'id';
+    }
+
+    public function getDisplayName(): string
+    {
+        return $this->username;
     }
 
     public function register()

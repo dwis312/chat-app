@@ -8,7 +8,7 @@
     <?= $form->field($model, 'password')->passwordField() ?>
     <?= $form->field($model, 'cpassword')->passwordField() ?>
 
-    <button type="submit">Register</button>
+    <button class="button" type="submit">Register</button>
 
     <?php Form::end(); ?>
 

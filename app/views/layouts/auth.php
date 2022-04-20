@@ -9,7 +9,6 @@
 
     <!-- Css -->
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/home.css">
 
 </head>
 

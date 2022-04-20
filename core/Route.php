@@ -47,6 +47,6 @@ class Route
             $callback[0] = App::$app->controller;
         }
 
-        return call_user_func($callback, $this->request);
+        return call_user_func($callback, $this->request, $this->response);
     }
 }

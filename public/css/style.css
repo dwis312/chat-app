@@ -159,7 +159,7 @@ h1 {
     color: var(--color-danger);
 }
 
-button {
+.button {
     width: 100%;
     border: none;
     background: var(--color-border);
@@ -172,13 +172,13 @@ button {
     transition: .3s;
 }
 
-button:focus {
+.button:focus {
     outline: none;
     letter-spacing: 2px;
 }
 
-button:focus,
-button:hover {
+.button:focus,
+.button:hover {
     background: #0748b1;
 }
 
