@@ -16,6 +16,7 @@ class App
     public static string $ROOT_DIR;
     public static App $app;
     public string $userClass;
+    public string $layout = 'main';
 
     public Route $route;
     public Request $request;
@@ -23,7 +24,7 @@ class App
     public Session $session;
     public View $view;
     public ?DbModel $user;
-    public Controller $controller;
+    public ?Controller $controller = null;
     public Migrations $migrations;
 
     public Database $db;
@@ -55,7 +56,12 @@ class App
 
     public function run()
     {
-        echo $this->route->resolve();
+        try {
+            echo $this->route->resolve();
+        } catch (\Exception $e) {
+            $this->response->getStatusCode($e->getCode());
+            echo $this->view->renderView('_error', ['e' => $e]);
+        }
     }
 
     public function getController(): Controller

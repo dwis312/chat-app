@@ -6,11 +6,20 @@ require_once dirname(dirname(__DIR__)) . "/app/models/Users.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/LoginModel.php";
 require_once dirname(dirname(__DIR__)) . "/core/form/Form.php";
 require_once dirname(dirname(__DIR__)) . "/core/form/Field.php";
+require_once dirname(dirname(__DIR__)) . "/core/middlewares/BaseMiddleware.php";
+require_once dirname(dirname(__DIR__)) . "/core/middlewares/AuthMiddleware.php";
 
 class SiteController extends Controller
 {
-    public function home()
+    public function __construct()
     {
+        $this->registerMiddleware(new AuthMiddleware(['profile']));
+    }
+
+    public function home(Request $request, Response $response)
+    {
+        if (!App::isGuest()) $response->redirect('/login');
+
         $this->setLayout('main');
         return $this->render('home');
     }
@@ -69,5 +78,10 @@ class SiteController extends Controller
     {
         App::$app->logout();
         $response->redirect('/login');
+    }
+
+    public function profile()
+    {
+        return $this->render('profile');
     }
 }

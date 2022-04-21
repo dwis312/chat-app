@@ -3,6 +3,7 @@
 require_once __DIR__ . "/Request.php";
 require_once __DIR__ . "/Response.php";
 require_once __DIR__ . "/Controller.php";
+require_once __DIR__ . "/exception/NotFoundException.php";
 
 class Route
 {
@@ -34,8 +35,7 @@ class Route
 
         if ($callback === false) {
             $this->response->getStatusCode(404);
-            echo "404 Not Found";
-            exit;
+            throw new NotFoundException();
         }
 
         if (is_string($callback)) {
@@ -43,8 +43,14 @@ class Route
         }
 
         if (is_array($callback)) {
-            App::$app->controller = new $callback[0]();
-            $callback[0] = App::$app->controller;
+            $controller = new $callback[0]();
+            App::$app->controller = $controller;
+            $controller->action = $callback[1];
+            $callback[0] = $controller;
+
+            foreach ($controller->getMiddlewares() as $middleware) {
+                $middleware->execute();
+            }
         }
 
         return call_user_func($callback, $this->request, $this->response);

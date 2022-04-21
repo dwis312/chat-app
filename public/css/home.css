@@ -72,11 +72,16 @@ a {
     width: 3.125rem;
 }
 
+.profile {
+    color: #000;
+}
+
 :is(.users, .users-list) .details {
     margin-left: 1rem;
     color: #000;
 }
 
+.profile,
 :is(.users, .users-list) .details span {
     font-size: 1.1rem;
     font-weight: 500;

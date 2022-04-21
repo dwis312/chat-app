@@ -12,7 +12,10 @@ class View
 
     protected function renderLayout()
     {
-        $layout = App::$app->controller->layout;
+        $layout = App::$app->layout;
+        if (App::$app->controller) {
+            $layout = App::$app->controller->layout;
+        }
 
         ob_start();
         include_once App::$ROOT_DIR . "/app/views/layouts/$layout.php";

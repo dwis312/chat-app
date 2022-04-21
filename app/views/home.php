@@ -18,7 +18,9 @@
                         </g>
                     </svg>
                     <div class="details">
-                        <span><?= App::$app->user->getDisplayName(); ?></span>
+                        <a href="/profile" class="profile">
+                            <span><?= App::$app->user->getDisplayName(); ?></span>
+                        </a>
                         <p>Active now</p>
                     </div>
                 </div>

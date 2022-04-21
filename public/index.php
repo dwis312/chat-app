@@ -18,6 +18,8 @@ Route::post('/login', [SiteController::class, 'login']);
 
 Route::get('/logout', [SiteController::class, 'logout']);
 
+Route::get('/profile', [SiteController::class, 'profile']);
+
 $config = [
     'userClass' => Users::class,
     'db' => [
