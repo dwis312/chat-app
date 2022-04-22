@@ -197,3 +197,32 @@ h1 {
 .fls-txt {
     color: rgb(4, 14, 110);
 }
+
+.link-btn {
+    display: block;
+    margin-top: .5rem;
+    padding-left: .2rem;
+}
+
+.link-btn a {
+    text-decoration: none;
+    color: #1a73e8;
+    font-weight: 600;
+}
+
+.title.forgot {
+margin-bottom: 1rem;
+}
+
+.txt-msg {
+    width:30%;
+    padding: 0 .5rem 1rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.button.forgot-btn:focus {
+    letter-spacing: 0;
+    box-shadow: 0 10px 20px rgba(29, 26, 206, 0.801);
+
+}

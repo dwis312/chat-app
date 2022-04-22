@@ -16,6 +16,14 @@ Route::get('/login', [SiteController::class, 'login']);
 
 Route::post('/login', [SiteController::class, 'login']);
 
+Route::get('/forgot', [SiteController::class, 'forgot']);
+
+Route::post('/forgot', [SiteController::class, 'forgot']);
+
+Route::get('/reset_password', [SiteController::class, 'reset_password']);
+
+Route::post('/reset_password', [SiteController::class, 'reset_password']);
+
 Route::get('/logout', [SiteController::class, 'logout']);
 
 Route::get('/profile', [SiteController::class, 'profile']);

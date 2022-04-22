@@ -4,6 +4,8 @@ require_once dirname(dirname(__DIR__)) . "/core/Controller.php";
 require_once dirname(dirname(__DIR__)) . "/core/Request.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/Users.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/LoginModel.php";
+require_once dirname(dirname(__DIR__)) . "/app/models/Forgot.php";
+require_once dirname(dirname(__DIR__)) . "/app/models/Reset_password.php";
 require_once dirname(dirname(__DIR__)) . "/core/form/Form.php";
 require_once dirname(dirname(__DIR__)) . "/core/form/Field.php";
 require_once dirname(dirname(__DIR__)) . "/core/middlewares/BaseMiddleware.php";
@@ -18,6 +20,7 @@ class SiteController extends Controller
 
     public function home(Request $request, Response $response)
     {
+
         if (!App::isGuest()) $response->redirect('/login');
 
         $this->setLayout('main');
@@ -71,6 +74,56 @@ class SiteController extends Controller
         $this->setLayout('auth');
         return $this->render('login', [
             'model' => $login
+        ]);
+    }
+
+    public function forgot(Request $request, Response $response)
+    {
+        $user = new Forgot();
+
+        if ($request->post()) {
+            $user->loadData($request->getData());
+
+            if ($user->valiadate() && $user->cekEmail()) {
+                App::$app->session->setFlash('success', 'Validate email success');
+                App::$app->response->redirect('/reset_password');
+                exit;
+            }
+
+            $this->setLayout('auth');
+            return $this->render('forgot', [
+                'model' => $user
+            ]);
+        }
+
+        $this->setLayout('auth');
+        return $this->render('forgot', [
+            'model' => $user
+        ]);
+    }
+
+    public function reset_password(Request $request, Response $response)
+    {
+        $user = new Reset_password();
+
+        if ($request->post()) {
+            $user->loadData($request->getData());
+
+            if ($user->valiadate() && $user->reset()) {
+                App::$app->session->setFlash('success', 'Change password success');
+                App::$app->response->redirect('/login');
+                exit;
+            }
+
+            $this->setLayout('auth');
+            return $this->render('reset_password', [
+                'model' => $user
+            ]);
+        }
+
+        $this->setLayout('auth');
+        return $this->render('reset_password', [
+            'model' => $user
         ]);
     }
 

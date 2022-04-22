@@ -10,6 +10,8 @@
 
     <button class="button" type="submit">Register</button>
 
+    <small class="link-btn">Have account please ? <a href="login">Login</a></small>
+
     <?php Form::end(); ?>
 
 </div>

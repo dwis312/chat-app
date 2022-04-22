@@ -30,6 +30,7 @@ abstract class DbModel extends Model
         $tableName = static::tableName();
         $attributes = array_keys($where);
         $sql = implode("AND", array_map(fn ($attr) => "$attr= :$attr", $attributes));
+
         $statement = self::prepare("SELECT * FROM $tableName WHERE $sql");
 
         foreach ($where as $key => $item) {
@@ -39,6 +40,19 @@ abstract class DbModel extends Model
         $statement->execute();
         return $statement->fetchObject(static::class);
     }
+
+
+    public function reset($where)
+    {
+        $tableName = static::tableName();
+        $attributes = $where;
+        echo '<pre>';
+        var_dump($attributes);
+        echo '</pre>';
+        exit;
+    }
+
+
 
     public static function prepare($sql)
     {
