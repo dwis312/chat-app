@@ -6,6 +6,7 @@ require_once __DIR__ . "/Request.php";
 require_once __DIR__ . "/Response.php";
 require_once __DIR__ . "/View.php";
 require_once __DIR__ . "/DbModel.php";
+require_once __DIR__ . "/UserModel.php";
 require_once __DIR__ . "/Controller.php";
 require_once __DIR__ . "/../db/Database.php";
 require_once __DIR__ . "/../db/Migrations.php";
@@ -23,7 +24,7 @@ class App
     public Response $response;
     public Session $session;
     public View $view;
-    public ?DbModel $user;
+    public ?UserModel $user;
     public ?Controller $controller = null;
     public Migrations $migrations;
 
@@ -79,7 +80,7 @@ class App
         $this->migrations->applyMigrations();
     }
 
-    public function login(DbModel $user)
+    public function login(UserModel $user)
     {
         $this->user = $user;
         $primaryKey = $user->primaryKey();

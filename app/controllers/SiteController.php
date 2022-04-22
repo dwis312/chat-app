@@ -7,7 +7,8 @@ require_once dirname(dirname(__DIR__)) . "/app/models/LoginModel.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/Forgot.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/Reset_password.php";
 require_once dirname(dirname(__DIR__)) . "/core/form/Form.php";
-require_once dirname(dirname(__DIR__)) . "/core/form/Field.php";
+require_once dirname(dirname(__DIR__)) . "/core/form/BaseFiled.php";
+require_once dirname(dirname(__DIR__)) . "/core/form/InputField.php";
 require_once dirname(dirname(__DIR__)) . "/core/middlewares/BaseMiddleware.php";
 require_once dirname(dirname(__DIR__)) . "/core/middlewares/AuthMiddleware.php";
 
