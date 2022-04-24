@@ -10,7 +10,7 @@
 
     <button class="button" type="submit">Register</button>
 
-    <small class="link-btn">Have account please ? <a href="login">Login</a></small>
+    <small class="link-btn">Already signed up? <a href="login">Login now</a></small>
 
     <?php Form::end(); ?>
 

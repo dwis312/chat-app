@@ -22,7 +22,7 @@ class Reset_password extends Model
 
     public function primaryKey(): string
     {
-        return 'id';
+        return 'users_id';
     }
 
     public function rules(): array

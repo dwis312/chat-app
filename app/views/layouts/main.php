@@ -23,6 +23,8 @@
 
     {{content}}
 
+
+    <script src="/js/main_script.js"></script>
 </body>
 
 </html>

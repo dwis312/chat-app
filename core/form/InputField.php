@@ -7,14 +7,17 @@ class InputField extends BaseField
     public const TYPE_TEXT = 'text';
     public const TYPE_EMAIL = 'email';
     public const TYPE_PASSWORD = 'password';
+    public const TYPE_PASSWORD_SHOW = '<span class="password-show" id="show">show</span>';
 
 
     public string $type;
     public string $value;
+    public string $value_password_show;
 
     public function __construct(Model $model, string $attribute)
     {
         $this->type = self::TYPE_TEXT;
+        $this->value_password_show = ' ';
         parent::__construct($model, $attribute);
         $this->value = $this->model->{$this->attribute};
     }
@@ -22,7 +25,7 @@ class InputField extends BaseField
     public function passwordField()
     {
         $this->type = self::TYPE_PASSWORD;
-        $this->value = '';
+        $this->value_password_show = self::TYPE_PASSWORD_SHOW;
         return $this;
     }
 
@@ -41,6 +44,13 @@ class InputField extends BaseField
             $this->attribute, // input name
             $this->attribute, // input id
             $this->value // input value
+        );
+    }
+
+    public function renderNotif(): string
+    {
+        return sprintf(
+            $this->value_password_show,
         );
     }
 }

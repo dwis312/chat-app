@@ -26,7 +26,13 @@ Route::post('/reset_password', [SiteController::class, 'reset_password']);
 
 Route::get('/logout', [SiteController::class, 'logout']);
 
+Route::post('/', [SiteController::class, 'logout']);
+
 Route::get('/profile', [SiteController::class, 'profile']);
+
+Route::get('/chat', [SiteController::class, 'chat']);
+
+Route::post('/chat', [SiteController::class, 'chat']);
 
 $config = [
     'userClass' => Users::class,

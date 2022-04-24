@@ -17,15 +17,17 @@ class SiteController extends Controller
     public function __construct()
     {
         $this->registerMiddleware(new AuthMiddleware(['profile']));
+        $this->registerMiddleware(new AuthMiddleware(['chat']));
     }
 
     public function home(Request $request, Response $response)
     {
 
         if (!App::isGuest()) $response->redirect('/login');
+        $users = App::$app->userList();
 
         $this->setLayout('main');
-        return $this->render('home');
+        return $this->render('home', ['users' => $users]);
     }
 
     public function register(Request $request)
@@ -130,12 +132,29 @@ class SiteController extends Controller
 
     public function logout(Request $request, Response $response)
     {
-        App::$app->logout();
-        $response->redirect('/login');
+        $logout = new Users();
+
+        if ($request->post()) {
+            $logout->loadData($request->getData());
+
+            if ($logout->logout()) {
+                App::$app->logout();
+                $response->redirect('/login');
+            }
+
+            $this->setLayout('main');
+            return $this->render('home');
+        }
     }
 
     public function profile()
     {
         return $this->render('profile');
+    }
+
+    public function chat(Request $request, Response $response)
+    {
+        $this->setLayout('main');
+        return $this->render('chat');
     }
 }

@@ -4,14 +4,14 @@ require_once dirname(dirname(__DIR__)) . "/core/UserModel.php";
 
 class Users extends UserModel
 {
-    const STATUS_INACTIVE = 0;
-    const STATUS_ACTIVE = 1;
-    const STATUS_DELETED = 2;
+    const STATUS_INACTIVE = 'Offline';
+    const STATUS_ACTIVE = 'Active now';
 
     public string $username = '';
     public string $email = '';
-    public int $status = self::STATUS_INACTIVE;
+    public string $status = self::STATUS_INACTIVE;
     public string $password = '';
+    public string $unique_id = '';
     public string $cpassword = '';
 
     public function tablename(): string
@@ -21,7 +21,7 @@ class Users extends UserModel
 
     public function primaryKey(): string
     {
-        return 'id';
+        return 'users_id';
     }
 
     public function getDisplayName(): string
@@ -32,8 +32,21 @@ class Users extends UserModel
     public function register()
     {
         $this->status = self::STATUS_INACTIVE;
+        $this->unique_id = rand(time(), 10000000);
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         return parent::save();
+    }
+
+    public function logout()
+    {
+        $this->status = self::STATUS_INACTIVE;
+        $this->username = App::$app->user->username;
+        parent::login([
+            'username' => $this->username,
+            'status' => $this->status,
+        ]);
+
+        return true;
     }
 
     public function attributes(): array
@@ -42,6 +55,7 @@ class Users extends UserModel
             'username',
             'email',
             'status',
+            'unique_id',
             'password',
         ];
     }

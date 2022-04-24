@@ -4,8 +4,12 @@ require_once dirname(dirname(__DIR__)) . '/core/Model.php';
 
 class LoginModel extends Model
 {
+    const STATUS_INACTIVE = 'Offline';
+    const STATUS_ACTIVE = 'Active now';
+
     public string $username = '';
     public string $password = '';
+    public string $status = self::STATUS_INACTIVE;
 
     public function tableName(): string
     {
@@ -16,6 +20,7 @@ class LoginModel extends Model
     {
         return [
             'username',
+            'status',
             'password',
         ];
     }
@@ -47,6 +52,14 @@ class LoginModel extends Model
         if (!password_verify($this->password, $user->password)) {
             $this->addError('password', 'Password is incorrect');
             return false;
+        }
+
+        if ($user) {
+            $this->status = self::STATUS_ACTIVE;
+            Users::login([
+                'username' => $this->username,
+                'status' => $this->status,
+            ]);
         }
 
         return App::$app->login($user);

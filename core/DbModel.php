@@ -41,15 +41,37 @@ abstract class DbModel extends Model
         return $statement->fetchObject(static::class);
     }
 
-
-    public function reset($where)
+    public function getAll($where)
     {
         $tableName = static::tableName();
-        $attributes = $where;
-        echo '<pre>';
-        var_dump($attributes);
-        echo '</pre>';
-        exit;
+        $attributes = array_keys($where);
+        $sql = implode("AND", array_map(fn ($attr) => "$attr= :$attr", $attributes));
+
+        $statement = self::prepare("SELECT * FROM $tableName WHERE NOT $sql");
+
+        foreach ($where as $key => $item) {
+            $statement->bindValue(":$key", $item);
+        }
+
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function login($where)
+    {
+        $tableName = static::tableName();
+        $attributes = array_keys($where);
+        $params = array_map(fn ($attr) => ":$attr", $attributes);
+        $sql1 = end($attributes);
+        $sql2 = end($params);
+
+        $statement = self::prepare("UPDATE $tableName SET $sql1=$sql2 WHERE $tableName . $attributes[0] = $params[0]");
+
+        $statement->bindValue("$sql2", $where["status"]);
+        $statement->bindValue("$params[0]", $where["username"]);
+
+        $statement->execute();
     }
 
 

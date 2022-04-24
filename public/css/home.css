@@ -191,3 +191,120 @@ a {
 .users-list a .status-dot.offline {
     background: #ccc;
 }
+
+.chat-area header {
+    display: flex;
+    align-items: center;
+    padding: 18px 30px;
+}
+
+.chat-area header .arrow {
+    display: block;
+    content: '';
+    height: 0;
+    width: 0;
+    border-right: 15px solid #333;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+.chat-area header img{
+    height: 45px;
+    width: 45px;
+    margin: 0 15px;
+    border-radius: 50%;
+    border: 1px solid #333;
+}
+
+.chat-area header span {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.chat-box {
+    height: 450px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #e3e3e3 transparent;
+    scrollbar-track-color: #1a73e8;
+    background: #fff;
+    padding: 10px 30px 20px 30px;
+    box-shadow: inset 0 32px 32px -32px rgba(0, 0, 0, 0.15),
+    inset 0 -32px 32px -32px rgba(0, 0, 0, 0.15);
+}
+
+.chat-box .chat {
+    margin: 15px 0;
+}
+
+.chat-box .chat p {
+    word-wrap: break-word;
+    padding: 8px 16px;
+    box-shadow: 0 0 32px rgba(0, 0, 0, 0.158),
+                0 16px 16px -16px rgba(0, 0, 0, 0.158);
+}
+
+.chat-box .outgoing {
+    display: flex;
+}
+
+.outgoing .details {
+    margin-left: auto;
+    max-width: calc(100% - 130px);
+}
+.outgoing .details p{
+    background: #333;
+    color: #fff;
+    border-radius: 18px 18px 0 18px;
+}
+
+.chat-box .incoming {
+    display: flex;
+    align-items: flex-end ;
+}
+.chat-box .incoming img {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    border: 1px solid #333;
+}
+
+.incoming .details {
+    margin-left: 10px;
+    margin-right: auto;
+    max-width: calc(100% - 130px);
+}
+.incoming .details p{
+    background: #fff;
+    color: #333;
+    border-radius: 18px 18px 18px 0;
+
+}
+
+.chat-area .typing-area {
+    padding: 18px 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.typing-area input {
+    height: 45px;
+    width: calc(100% - 58px);
+    font-size: 17px;
+    border: 1px solid #ccc;
+    padding: 0 13px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+.typing-area button {
+    width: 55px;
+    border: none;
+    outline: none;
+    background: #333;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}

@@ -99,4 +99,10 @@ class App
     {
         return self::$app->user;
     }
+
+    public function userList()
+    {
+        $user = $this->userClass::getAll(['unique_id' => $this->user->unique_id]);
+        return $user;
+    }
 }
