@@ -8,6 +8,8 @@ require_once __DIR__ . "/../app/models/Users.php";
 
 Route::get('/', [SiteController::class, 'home']);
 
+Route::post('/', [SiteController::class, 'home']);
+
 Route::get('/register', [SiteController::class, 'register']);
 
 Route::post('/register', [SiteController::class, 'register']);
@@ -25,8 +27,6 @@ Route::get('/reset_password', [SiteController::class, 'reset_password']);
 Route::post('/reset_password', [SiteController::class, 'reset_password']);
 
 Route::get('/logout', [SiteController::class, 'logout']);
-
-Route::post('/', [SiteController::class, 'logout']);
 
 Route::get('/profile', [SiteController::class, 'profile']);
 

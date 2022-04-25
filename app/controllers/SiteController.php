@@ -26,6 +26,16 @@ class SiteController extends Controller
         if (!App::isGuest()) $response->redirect('/login');
         $users = App::$app->userList();
 
+        if ($request->post() && !empty($_POST["cari"])) {
+            $users = DbModel::cari($_POST["cari"]);
+
+            $this->setLayout('main');
+            return $this->render('home', ['users' => $users]);
+        } elseif ($request->post() && empty($_POST["logout"]) && !isset($_POST["cari"])) {
+            $this->logout($request, $response);
+        }
+
+
         $this->setLayout('main');
         return $this->render('home', ['users' => $users]);
     }

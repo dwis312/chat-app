@@ -139,7 +139,7 @@ a {
 }
 
 .users-list {
-    max-height: 21.85rem;
+    height: 21.85rem;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #e3e3e3 transparent;
@@ -190,6 +190,14 @@ a {
 
 .users-list a .status-dot.offline {
     background: #ccc;
+}
+
+.notfound {
+    text-align: center;
+    padding: 5rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    font-style: italic;
 }
 
 .chat-area header {

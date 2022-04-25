@@ -75,6 +75,18 @@ abstract class DbModel extends Model
     }
 
 
+    public function cari($keyword)
+    {
+        $tableName = Users::tableName();
+        $sql = ":" . "username";
+
+        $statement = self::prepare("SELECT * FROM $tableName WHERE username LIKE $sql");
+        $statement->bindValue("$sql", $keyword);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+
 
     public static function prepare($sql)
     {
