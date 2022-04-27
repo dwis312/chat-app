@@ -47,7 +47,7 @@
                 <?php endif; ?>
                 <?php foreach ($users as $user) : ?>
 
-                    <a href="chat">
+                    <a href="chat?unique_id=<?= $user['unique_id']; ?>">
                         <div class="content">
                             <!-- <img src="" alt=""> -->
                             <svg width="40" height="40" version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">

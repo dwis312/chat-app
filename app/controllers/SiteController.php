@@ -4,6 +4,7 @@ require_once dirname(dirname(__DIR__)) . "/core/Controller.php";
 require_once dirname(dirname(__DIR__)) . "/core/Request.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/Users.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/LoginModel.php";
+require_once dirname(dirname(__DIR__)) . "/app/models/ChatModel.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/Forgot.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/Reset_password.php";
 require_once dirname(dirname(__DIR__)) . "/core/form/Form.php";
@@ -164,7 +165,30 @@ class SiteController extends Controller
 
     public function chat(Request $request, Response $response)
     {
-        $this->setLayout('main');
-        return $this->render('chat');
+        if (!App::isGuest()) $response->redirect('/');
+        $chatMessage = new ChatModel();
+        if ($request->get()) {
+            $user = Users::getUser($request->getData());
+
+            $this->setLayout('main');
+            return $this->render('chat', [
+                'user' => $user,
+                'message' => $chatMessage->getChat()
+            ]);
+        }
+
+        if ($request->post()) {
+            $chatMessage->loadData($request->getData());
+
+            if ($chatMessage->insertChat()) {
+                $response->redirect('/chat');
+            }
+
+            $this->setLayout('main');
+            return $this->render('chat', [
+                'user' => Users::getUser($_GET),
+                'message' => $chatMessage->getChat()
+            ]);
+        }
     }
 }

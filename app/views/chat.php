@@ -7,33 +7,44 @@
                 <a href="/"><span class="arrow"></span></a>
                 <img src="#" alt="">
                 <div class="details">
-                    <span><?= $user; ?></span>
-                    <p>Active now</p>
+                    <span><?= $user["username"]; ?></span>
+                    <p><?= $user["status"]; ?></p>
                 </div>
             </header>
 
             <div class="chat-box">
-
-                <?php for ($i = 0; $i <= 10; $i++) : ?>
-                    <div class="chat outgoing">
-                        <div class="details">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, doloribus.</p>
-                        </div>
+                <?php if (empty($message)) : ?>
+                    <div class="text">
+                        <p>No messages are available. Once you send message they will appear here.</p>
                     </div>
+                <?php else : ?>
+                    <?php foreach ($message as $m) : ?>
 
-                    <div class="chat incoming">
-                        <img src="" alt="">
-                        <div class="details">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, doloribus.</p>
-                        </div>
-                    </div>
+                        <?php if ($m["outgoing_msg_id"] === App::$app->user->unique_id) : ?>
 
-                <?php endfor; ?>
+                            <div class="chat outgoing">
+                                <div class="details">
+                                    <p><?= $m["msg"]; ?></p>
+                                </div>
+                            </div>
+
+                        <?php else : ?>
+
+                            <div class="chat incoming">
+                                <img src="" alt="">
+                                <div class="details">
+                                    <p><?= $m["msg"]; ?></p>
+                                </div>
+                            </div>
+
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
 
             </div>
 
-            <form action="" class="typing-area">
-                <input type="text" name="" id="" placeholder="Type a message here...">
+            <form action="" method="POST" class="typing-area">
+                <input type="text" name="msg" id="" placeholder="Type a message here...">
                 <button type="submit">Send</button>
             </form>
         </section>

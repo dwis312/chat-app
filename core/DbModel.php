@@ -86,6 +86,53 @@ abstract class DbModel extends Model
         return $statement->fetchAll();
     }
 
+    public function getUser($data)
+    {
+        $tableName = Users::tableName();
+        $attributes = array_keys($data);
+        $params = implode(" = ", array_map(fn ($attr) => "$attr= :$attr", $attributes));
+        $statement = self::prepare("SELECT * FROM $tableName WHERE $params");
+
+        foreach ($attributes as $attribute) {
+            $statement->bindValue(":$attribute", $data['unique_id']);
+        }
+
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function chat($data)
+    {
+        $tableName = static::tableName();
+        $statement = self::prepare("SELECT * FROM $tableName
+                            LEFT JOIN users ON users.unique_id = messages.outgoing_msg_id
+                            WHERE (outgoing_msg_id = :outgoing_msg_id AND incoming_msg_id = :incoming_msg_id)
+                            OR (outgoing_msg_id = :incoming_msg_id AND incoming_msg_id = :outgoing_msg_id) ORDER BY msg_id");
+
+        $statement->bindValue(":outgoing_msg_id", $data["outgoing_msg_id"]);
+        $statement->bindValue(":incoming_msg_id", $data["incoming_msg_id"]);
+
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateChat()
+    {
+        $tableName = $this->tableName();
+        $attributes = $this->attributes();
+        $params = array_map(fn ($attr) => ":$attr", $attributes);
+
+
+        $statement = self::prepare("INSERT INTO $tableName (" . implode(',', $attributes) . ") VALUES(" . implode(',', $params) . ")");
+
+        foreach ($attributes as $attribute) {
+            $statement->bindValue(":$attribute", $this->{$attribute});
+        }
+
+
+        $statement->execute();
+    }
+
 
 
     public static function prepare($sql)
