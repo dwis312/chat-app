@@ -43,6 +43,7 @@ class SiteController extends Controller
 
     public function register(Request $request)
     {
+        if (App::$app->user) throw new ForbiddenException();
         $user = new Users();
 
         if ($request->post()) {
@@ -68,6 +69,7 @@ class SiteController extends Controller
 
     public function login(Request $request, Response $response)
     {
+        if (App::$app->user) throw new ForbiddenException();
         $login = new LoginModel();
 
         if ($request->post()) {
@@ -169,6 +171,7 @@ class SiteController extends Controller
         $chatMessage = new ChatModel();
         if ($request->get()) {
             $user = Users::getUser($request->getData());
+            if (!$user) throw new ForbiddenException;
 
             $this->setLayout('main');
             return $this->render('chat', [

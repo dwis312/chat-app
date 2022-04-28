@@ -88,6 +88,7 @@ abstract class DbModel extends Model
 
     public function getUser($data)
     {
+        if (empty($data)) throw new ForbiddenException();
         $tableName = Users::tableName();
         $attributes = array_keys($data);
         $params = implode(" = ", array_map(fn ($attr) => "$attr= :$attr", $attributes));
@@ -98,7 +99,11 @@ abstract class DbModel extends Model
         }
 
         $statement->execute();
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        if (!$statement->execute()) {
+            return false;
+        } else {
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }
     }
 
     public function chat($data)

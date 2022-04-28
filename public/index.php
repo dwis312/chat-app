@@ -15,6 +15,8 @@ Route::get('/register', [SiteController::class, 'register']);
 Route::post('/register', [SiteController::class, 'register']);
 
 Route::get('/login', [SiteController::class, 'login']);
+Route::get('/login/{id}', [SiteController::class, 'login']);
+Route::get('/login/{id:\d+}/{username}', [SiteController::class, 'login']);
 
 Route::post('/login', [SiteController::class, 'login']);
 
@@ -29,6 +31,7 @@ Route::post('/reset_password', [SiteController::class, 'reset_password']);
 Route::get('/logout', [SiteController::class, 'logout']);
 
 Route::get('/profile', [SiteController::class, 'profile']);
+Route::get('/profile/{id:\d+}/{username}', [SiteController::class, 'profile']);
 
 Route::get('/chat', [SiteController::class, 'chat']);
 
