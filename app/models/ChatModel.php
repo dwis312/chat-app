@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/../../core/DbModel.php';
 
 class ChatModel extends DbModel
 {
@@ -35,6 +35,7 @@ class ChatModel extends DbModel
 
     public function getChat()
     {
+
         return parent::chat([
             "incoming_msg_id" => $_GET["unique_id"],
             "outgoing_msg_id" => App::$app->user->unique_id,
@@ -43,8 +44,13 @@ class ChatModel extends DbModel
 
     public function insertChat()
     {
+        if (empty($this->msg)) return false;
         $this->incoming_msg_id = $_GET["unique_id"];
         $this->outgoing_msg_id = App::$app->user->unique_id;
-        return parent::updateChat();
+        return parent::updateChat([
+            'incoming_msg_id' => $this->incoming_msg_id,
+            'outgoing_msg_id' => $this->outgoing_msg_id,
+            'msg' => $this->msg,
+        ]);
     }
 }

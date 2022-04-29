@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/Model.php';
+require_once __DIR__ . '/exception/ForbiddenException.php';
 
 abstract class DbModel extends Model
 {
@@ -121,17 +122,16 @@ abstract class DbModel extends Model
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function updateChat()
+    public function updateChat($data)
     {
-        $tableName = $this->tableName();
-        $attributes = $this->attributes();
+        $tableName = ChatModel::tableName();
+        $attributes = array_keys($data);
+
         $params = array_map(fn ($attr) => ":$attr", $attributes);
-
-
         $statement = self::prepare("INSERT INTO $tableName (" . implode(',', $attributes) . ") VALUES(" . implode(',', $params) . ")");
 
-        foreach ($attributes as $attribute) {
-            $statement->bindValue(":$attribute", $this->{$attribute});
+        foreach ($data as $key => $item) {
+            $statement->bindValue(":$key", $item);
         }
 
 

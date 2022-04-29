@@ -7,6 +7,7 @@ require_once __DIR__ . "/Response.php";
 require_once __DIR__ . "/View.php";
 require_once __DIR__ . "/DbModel.php";
 require_once __DIR__ . "/UserModel.php";
+require_once __DIR__ . "/../app/models/Users.php";
 require_once __DIR__ . "/Controller.php";
 require_once __DIR__ . "/../db/Database.php";
 require_once __DIR__ . "/../db/Migrations.php";

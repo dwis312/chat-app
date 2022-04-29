@@ -23,7 +23,7 @@
 
     {{content}}
 
-    <script src="/js/home.js"></script>
+    <script src="/js/chat-box.js"></script>
 </body>
 
 </html>
