@@ -106,4 +106,10 @@ class App
         $user = $this->userClass::getAll(['unique_id' => $this->user->unique_id]);
         return $user;
     }
+
+    public function users()
+    {
+        $user = $this->userClass::cari($_GET['username']);
+        return $user;
+    }
 }

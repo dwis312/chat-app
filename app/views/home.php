@@ -24,21 +24,20 @@
                     </div>
                 </div>
                 <form action="" method="POST">
-                    <input class="cari" name="logout" id="cari" type="hidden">
+                    <input class="logout" name="logout" id="logout" type="hidden">
                     <button class="button logout" type="submit">logout</button>
                 </form>
             </header>
 
             <div class="search">
-                <form action="" method="POST" autocomplete="off">
-                    <label class="text" for="cari">Select an user to start chat</label>
+                <form class="form-search" action="" method="POST" autocomplete="off">
                     <input class="cari" name="cari" id="cari" type="text" placeholder="Enter name to search..." autofocus>
                     <button class="btn-cari" id="btn-cari">Search</button>
                 </form>
             </div>
 
             <div class="users-list">
-                <script src="/js/users.js"></script>
+
             </div>
         </section>
 

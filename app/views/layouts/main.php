@@ -23,7 +23,11 @@
 
     {{content}}
 
-    <script src="/js/chat-box.js"></script>
+    <?php if (App::$app->controller->action === 'home') : ?>
+        <script src="/js/users.js"></script>
+    <?php else : ?>
+        <script src="/js/chat-box.js"></script>
+    <?php endif; ?>
 </body>
 
 </html>

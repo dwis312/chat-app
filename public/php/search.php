@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . "/../../config/config.php";
 require_once __DIR__ . "/../../app/models/Users.php";
 require_once dirname(dirname(__DIR__)) . '/core/App.php';
@@ -14,13 +15,13 @@ $config = [
 ];
 
 $users = new App(dirname(__DIR__), $config);
-$users = App::$app->userList();
+$users = App::$app->users();
 
 ?>
 
 <?php if (empty($users)) : ?>
     <div class="notfound">
-        <p>No users are available to chat</p>
+        <p>username is not exist</p>
     </div>
 <?php else : ?>
     <?php foreach ($users as $user) : ?>
