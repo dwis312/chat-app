@@ -6,7 +6,7 @@
     <?= $form->field($model, 'username') ?>
     <?= $form->field($model, 'email')->emailField()  ?>
     <?= $form->field($model, 'password')->passwordField() ?>
-    <?= $form->field($model, 'cpassword')->passwordField() ?>
+    <?= $form->field($model, 'cpassword')->cpasswordField() ?>
 
     <button class="button" type="submit">Register</button>
 

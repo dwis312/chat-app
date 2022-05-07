@@ -7,7 +7,8 @@ class InputField extends BaseField
     public const TYPE_TEXT = 'text';
     public const TYPE_EMAIL = 'email';
     public const TYPE_PASSWORD = 'password';
-    public const TYPE_PASSWORD_SHOW = '<span class="password-show" id="show">show</span>';
+    public const TYPE_PASSWORD_SHOW = '<span class="password-show">show</span>';
+    public const TYPE_CPASSWORD_SHOW = '<span class="cpassword-show">show</span>';
 
 
     public string $type;
@@ -26,6 +27,13 @@ class InputField extends BaseField
     {
         $this->type = self::TYPE_PASSWORD;
         $this->value_password_show = self::TYPE_PASSWORD_SHOW;
+        return $this;
+    }
+
+    public function cpasswordField()
+    {
+        $this->type = self::TYPE_PASSWORD;
+        $this->value_password_show = self::TYPE_CPASSWORD_SHOW;
         return $this;
     }
 

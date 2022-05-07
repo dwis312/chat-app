@@ -20,7 +20,7 @@ $users = App::$app->userList();
 
 <?php if (empty($users)) : ?>
     <div class="notfound">
-        <p>username <?= $_POST['cari']; ?> is not found</p>
+        <p>No users are available to chat</p>
     </div>
 <?php endif; ?>
 <?php foreach ($users as $user) : ?>

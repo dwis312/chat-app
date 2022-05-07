@@ -1,14 +1,27 @@
 // password show - hidden
 const passField = document.getElementById("password");
-const btnToggle = document.getElementById("show");
+const passField2 = document.getElementById("cpassword");
+const btnPss = document.querySelector(".password-show");
+const btnCPss = document.querySelector(".cpassword-show");
 
 
-btnToggle.addEventListener('click', () =>{
-    if(passField.type === "password") {
+
+btnPss.addEventListener('click', () => {
+    if(passField.type === "password" ) {
         passField.type = "text";
-        btnToggle.innerHTML = "Hide";
+        btnPss.innerHTML = "Hide";
     } else {
         passField.type = "password";
-        btnToggle.innerHTML = "show";
+        btnPss.innerHTML = "show";
     }
-});
+})
+
+btnCPss.addEventListener('click', () => {
+    if(passField2.type === "password" ) {
+        passField2.type = "text";
+        btnCPss.innerHTML = "Hide";
+    } else {
+        passField2.type = "password";
+        btnCPss.innerHTML = "show";
+    }
+})

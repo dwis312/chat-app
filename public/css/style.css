@@ -227,7 +227,8 @@ margin-bottom: 1rem;
 
 }
 
-.password-show {
+.password-show,
+.cpassword-show {
     position: absolute;
     top: 20%;
     right: 5%;
@@ -241,7 +242,8 @@ margin-bottom: 1rem;
     transition: .3s;
 }
 
-.password-show:hover {
+.password-show:hover,
+.cpassword-show:hover {
     background: #0748b1;
     color: #fff;
     border-color: transparent;
