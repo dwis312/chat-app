@@ -14,3 +14,9 @@
     <?php Form::end(); ?>
 
 </div>
+
+
+<div class="footer">
+    <!-- <p class="footer__copy">&#169; <a href="https://github.com/dwis312" target="_blank">Dwi Susilo.</a> All right reserved.</p> -->
+    <p class="footer__copy">&#169; <a href="https://wa.me/6285155147995" target="_blank">Dwi Susilo.</a> All right reserved.</p>
+</div>

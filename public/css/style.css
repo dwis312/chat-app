@@ -18,22 +18,35 @@
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background: var(--color-bg);
     font-family: var(--body-font);
 }
 
+h1 {
+    font-weight: 500;
+    margin-bottom: 3rem;
+}
+
+a {
+    text-decoration: none;
+}
+
 .card {
     min-width: 100%;
-    height: 100vh;
+    padding: .5rem 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-h1 {
-    font-weight: 500;
-    margin-bottom: 3rem;
+.title {
+    font-size: calc(var(--text-normal) * 2);
+    width: 100%;
+    text-align: center;
 }
 
 .form-control {
@@ -183,19 +196,17 @@ h1 {
 }
 
 .flash {
-    position: absolute;
-    top: 2%;
-    left: 40%;
     background: linear-gradient(110deg, rgba(1, 99, 255, 0.09), transparent);
     border-top: 2px solid rgba(0, 0, 0, 0.112);
     border-right: 2px solid rgba(0, 0, 0, 0.112);
     border-radius: .5rem;
-    padding: .75rem 3rem;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.41);
+    padding: .5rem 3rem;
+    box-shadow: 0 10px 20px rgba(2, 100, 146, 0.41);
+    margin: .5rem 0;
 }
 
 .fls-txt {
-    color: rgb(4, 14, 110);
+    color: rgb(0, 7, 68);
 }
 
 .link-btn {
@@ -247,4 +258,16 @@ margin-bottom: 1rem;
     background: #0748b1;
     color: #fff;
     border-color: transparent;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: .5rem 0;
+}
+
+.footer__copy {
+    text-align: center;
+    font-size: var(--text-smaller);
 }

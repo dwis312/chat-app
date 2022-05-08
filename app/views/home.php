@@ -31,7 +31,7 @@
 
             <div class="search">
                 <form class="form-search" action="" method="POST" autocomplete="off">
-                    <input class="cari" name="cari" id="cari" type="text" placeholder="Enter name to search..." autofocus>
+                    <input class="cari" name="cari" id="cari" type="text" placeholder="Enter name to search...">
                     <button class="btn-cari" id="btn-cari">Search</button>
                 </form>
             </div>
