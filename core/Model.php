@@ -8,16 +8,32 @@ abstract class Model
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
     public const RULE_UNIQUE = 'unique';
+    public const RULE_FILE_EXT = 'extention';
+    public const RULE_FILE_TYPE = 'type';
+    public const RULE_FILE_SIZE = 'size';
 
     public array $errors = [];
 
     public function loadData($data)
     {
-        foreach ($data as $key => $value) {
-            if (property_exists($this, $key)) {
-                $this->{$key} = $value;
+        $xx = [];
+
+        if (isset($data['photo'])) {
+            $data['photo'] = $this->loadFile();
+            foreach ($data as $key => $value) {
+                if (property_exists($this, $key)) {
+                    $this->{$key} = $value;
+                }
+            }
+        } else {
+            foreach ($data as $key => $value) {
+                if (property_exists($this, $key)) {
+                    $this->{$key} = $value;
+                }
             }
         }
+
+        return $xx;
     }
 
     abstract public function rules(): array;
@@ -54,6 +70,7 @@ abstract class Model
                 }
 
                 if ($ruleName === self::RULE_UNIQUE) {
+
                     $className = $rule['class'];
                     $uniqueAttr = $attribute = $rule['attribute'] ?? $attribute;
                     $tableName = $className::tableName();
@@ -65,8 +82,35 @@ abstract class Model
                         $this->addErrorForRule($attribute, self::RULE_UNIQUE, ['field' => $this->getLabel($attribute)]);
                     }
                 }
+
+                if ($ruleName === self::RULE_FILE_EXT) {
+                    $nama_file = $_FILES['photo']['name'];
+
+                    $daftar_photo = ['jpg', 'jpeg', 'png'];
+                    $ekstensi_file = explode('.', $nama_file);
+                    $ekstensi_file = strtolower(end($ekstensi_file));
+
+                    if (!in_array($ekstensi_file, $daftar_photo)) {
+                        $this->addErrorForRule($attribute, self::RULE_FILE_EXT);
+                    }
+                }
+
+                if ($ruleName === self::RULE_FILE_TYPE) {
+                    $tipe_file = $_FILES['photo']['type'];
+
+                    if ($tipe_file != 'image/jpeg' && $tipe_file != 'image/png') {
+                        $this->addErrorForRule($attribute, self::RULE_FILE_TYPE);
+                    }
+                }
+                if ($ruleName === self::RULE_FILE_SIZE) {
+                    $ukuran_file = $_FILES['photo']['size'];
+                    if ($ukuran_file > 1000000) {
+                        $this->addErrorForRule($attribute, self::RULE_FILE_SIZE);
+                    }
+                }
             }
         }
+
         return empty($this->errors);
     }
 
@@ -95,6 +139,9 @@ abstract class Model
             self::RULE_MAX => 'Min length of this field must be {max}',
             self::RULE_MATCH => 'This field must be the same as {match}',
             self::RULE_UNIQUE => 'Record with this {field} already exists',
+            self::RULE_FILE_EXT => 'File formats only JPG, JPEG and PNG',
+            self::RULE_FILE_TYPE => 'File format not photo',
+            self::RULE_FILE_SIZE => 'Maximum file size 1MB',
         ];
     }
 
@@ -116,5 +163,32 @@ abstract class Model
     public function getLabel($attribute)
     {
         return $this->labels()[$attribute] ?? $attribute;
+    }
+
+    public function loadFile()
+    {
+        $nama_file = $_FILES['photo']['name'];
+        $tmp_file = $_FILES['photo']['tmp_name'];
+        $ekstensi_file = explode('.', $nama_file);
+        $ekstensi_file = strtolower(end($ekstensi_file));
+
+        // Generate nama file baru
+        $nama_file_baru = uniqid();
+        $nama_file_baru .= '.';
+        $nama_file_baru .= $ekstensi_file;
+
+        if ($_FILES['photo']['error'] === 4) {
+            return [
+                'name' => ProfileModel::userProfile()->photo
+            ];
+        } else {
+
+            return [
+                'name' => $nama_file_baru,
+                'type' => $_FILES['photo']['type'],
+                'size' => $_FILES['photo']['size'],
+                'error' => $_FILES['photo']['error'],
+            ];
+        }
     }
 }

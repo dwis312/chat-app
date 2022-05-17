@@ -59,6 +59,7 @@ class LoginModel extends Model
             Users::login([
                 'username' => $this->username,
                 'status' => $this->status,
+                'last_at' => date("Y-m-d h:i:sa"),
             ]);
         }
 

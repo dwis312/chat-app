@@ -3,6 +3,7 @@
 require_once dirname(dirname(__DIR__)) . "/core/Controller.php";
 require_once dirname(dirname(__DIR__)) . "/core/Request.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/Users.php";
+require_once dirname(dirname(__DIR__)) . "/app/models/ProfileModel.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/LoginModel.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/ChatModel.php";
 require_once dirname(dirname(__DIR__)) . "/app/models/Forgot.php";
@@ -70,6 +71,7 @@ class SiteController extends Controller
     public function login(Request $request, Response $response)
     {
         if (App::$app->user) throw new ForbiddenException();
+
         $login = new LoginModel();
 
         if ($request->post()) {
@@ -162,7 +164,55 @@ class SiteController extends Controller
 
     public function profile()
     {
-        return $this->render('profile');
+        $user = new ProfileModel();
+
+        return $this->render('profile', [
+            'model' => $user->userProfile()
+        ]);
+    }
+
+    public function edit(Request $request, Response $response)
+    {
+        $user = new ProfileModel();
+
+        if ($request->post()) {
+            $user->loadData($request->getData());
+
+            if ($user->valiadate() && $user->edit()) {
+                $response->redirect('/profile');
+                exit;
+            }
+
+            return $this->render('edit', [
+                'model' => $user
+            ]);
+        }
+
+        return $this->render('edit', [
+            'model' => $user->userProfile()
+        ]);
+    }
+
+    public function setting(Request $request, Response $response)
+    {
+        $user =  new Users();
+
+        if ($request->post()) {
+            $user->loadData($request->getData());
+
+            if ($user->valiadate() && $user->settingUser()) {
+                $response->redirect('/../profile');
+                exit;
+            }
+
+            return $this->render('setting', [
+                'model' => $user
+            ]);
+        }
+
+        return $this->render('setting', [
+            'model' => App::isGuest()
+        ]);
     }
 
     public function chat(Request $request, Response $response)

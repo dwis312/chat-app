@@ -1,0 +1,80 @@
+.form-control {
+    margin: 0 auto;
+}
+
+.form-control .input-img  {
+    position: absolute;
+    display: none;
+}
+
+.form-control .field  {
+    position: relative;
+    padding: 0 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.form-control .field .bx {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.form-control .field .input {
+    width: 100%;
+    font-size: 1.3rem;
+    border: none;
+    background: none;
+    outline: none;
+    font-family: var(--body-font);
+}
+
+.form-control .field .input,
+.form-control .field .label {
+    color: cadetblue;
+}
+
+
+.form-control .field-img .img.is-invalid {
+    box-shadow: 0 0 20px var(--danger-color);
+
+}
+
+.form-control .field-img .feedback.is-invalid,
+.form-control .field .feedback {
+    display: none;
+    text-align: right;
+    margin-right: 5px;
+    font-style: italic;
+    
+}
+
+.form-control .field-img .feedback.is-invalid {
+    margin-right: 0;
+    text-align: center;
+}
+
+.form-control .field-img .feedback.is-invalid,
+.form-control .field .feedback.is-invalid {
+    display: block;
+}
+
+
+.form-control .field-img .feedback.is-invalid,
+.form-control .field .input.is-invalid,
+.form-control .field .label.is-invalid,
+.form-control .field .feedback.is-invalid {
+    color: var(--danger-color);
+}
+
+.form-control button {
+    display: block;
+    margin: 2rem auto;
+    padding: .5rem .75rem;
+    border: none;
+    border-radius: .5rem;
+    font-size: large;
+    font-family: var(--body-font);
+    font-weight: 600;
+    color: var(--light-color);
+    background: var(--success-color);
+}

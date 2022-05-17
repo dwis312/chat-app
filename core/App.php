@@ -48,7 +48,7 @@ class App
 
         $primaryValue = $this->session->get('user');
 
-        if ($primaryValue) {
+        if (!empty($primaryValue)) {
             $primaryKey = $this->userClass::primaryKey();
             $this->user = $this->userClass::findOne([$primaryKey => $primaryValue]);
         } else {

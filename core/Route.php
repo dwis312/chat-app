@@ -32,8 +32,9 @@ class Route
         $method = $this->request->getMethod();
         $url = $this->request->getPath();
         $url = trim($url, '/');
-        $routes = $this->routeMap[$method] ?? [];
-
+        // $url = explode('/', $url);
+        // $routes = $this->routeMap[$method] ?? [];
+        $routes = self::$routes[$method] ?? [];
         $routeParams = false;
 
         foreach ($routes as $route => $callback) {
@@ -56,9 +57,10 @@ class Route
                     $values[] = $valueMatches[$i][0];
                 }
                 $routeParams = array_combine($routeNames, $values);
-
                 $this->request->setRouteParams($routeParams);
-                return $callback;
+
+                if ($routeParams['id'] === App::isGuest()->unique_id) return $callback;
+                if ($routeParams['username'] === App::isGuest()->username) return $callback;
             }
         }
 

@@ -6,10 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat-App</title>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- Css -->
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/home.css">
+    <?php if (App::$app->controller->action === 'profile' || App::$app->controller->action === 'edit' || App::$app->controller->action === 'setting') : ?>
+        <link rel="stylesheet" href="/css/profile.css">
+        <link rel="stylesheet" href="/css/edit.css">
+    <?php else : ?>
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/home.css">
+    <?php endif; ?>
 
 </head>
 
@@ -25,8 +31,12 @@
 
     <?php if (App::$app->controller->action === 'home') : ?>
         <script src="/js/users.js"></script>
-    <?php else : ?>
+    <?php elseif (App::$app->controller->action === 'edit') : ?>
+        <script src="/js/edit.js"></script>
+    <?php elseif (App::$app->controller->action === 'chat') : ?>
         <script src="/js/chat-box.js"></script>
+    <?php else : ?>
+        <script src=""></script>
     <?php endif; ?>
 </body>
 

@@ -22,11 +22,60 @@ abstract class DbModel extends Model
             $statement->bindValue(":$attribute", $this->{$attribute});
         }
 
+        if ($statement->bindValue(":$attribute", $this->{$attribute}) === true) {
+            $this->saveUser([
+                "unique_id" => $this->unique_id
+            ]);
+        }
+
+        $statement->execute();
+
+        return true;
+    }
+
+    public function saveUser($data)
+    {
+
+        $tableName = 'profile';
+        $unique_id = array_keys($data);
+        $attributes = array_keys([
+            'name' => ' ',
+            'city' => ' ',
+            'profesi' => ' ',
+            'phone' => ' ',
+            'unique_id' => $unique_id,
+        ]);
+
+        $params = array_map(fn ($attr) => ":$attr", $attributes);
+
+        $statement = self::prepare("INSERT INTO $tableName (" . implode(',', $attributes) . ") VALUES(" . implode(',', $params) . ")");
+        $statement->bindValue(":name", " ");
+        $statement->bindValue(":city", " ");
+        $statement->bindValue(":profesi", " ");
+        $statement->bindValue(":phone", " ");
+        $statement->bindValue(":unique_id", $data["unique_id"]);
+
         $statement->execute();
         return true;
     }
 
     public function findOne($where)
+    {
+        $tableName = static::tableName();
+        $attributes = array_keys($where);
+        $sql = implode("AND", array_map(fn ($attr) => "$attr= :$attr", $attributes));
+
+        $statement = self::prepare("SELECT * FROM $tableName WHERE $sql");
+
+        foreach ($where as $key => $item) {
+            $statement->bindValue(":$key", $item);
+        }
+
+        $statement->execute();
+        return $statement->fetchObject(static::class);
+    }
+
+    public function getProfile($where)
     {
         $tableName = static::tableName();
         $attributes = array_keys($where);
@@ -62,15 +111,19 @@ abstract class DbModel extends Model
     public function login($where)
     {
         $tableName = static::tableName();
-        $attributes = array_keys($where);
-        $params = array_map(fn ($attr) => ":$attr", $attributes);
-        $sql1 = end($attributes);
-        $sql2 = end($params);
+        $attributes = array_keys(['username' => $where['username']]);
+        $value =  array_keys([
+            'status' => $where["status"],
+            'last_at' => $where["last_at"]
+        ]);
+        $params = implode(",", array_map(fn ($attr) => "$attr = :$attr", $value));
+        $sql = implode(",", array_map(fn ($attr) => "$attr = :$attr", $attributes));
 
-        $statement = self::prepare("UPDATE $tableName SET $sql1=$sql2 WHERE $tableName . $attributes[0] = $params[0]");
+        $statement = self::prepare("UPDATE $tableName SET $params WHERE $tableName . $sql");
 
-        $statement->bindValue("$sql2", $where["status"]);
-        $statement->bindValue("$params[0]", $where["username"]);
+        $statement->bindValue(":status", $where["status"]);
+        $statement->bindValue(":username", $where["username"]);
+        $statement->bindValue(":last_at", $where["last_at"]);
 
         $statement->execute();
     }
@@ -135,6 +188,51 @@ abstract class DbModel extends Model
 
 
         $statement->execute();
+    }
+
+
+    public function updateProfile()
+    {
+        $tableName = $this->tableName();
+        $attributes = $this->attributes();
+        $params = implode(", ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
+        $sql = "unique_id" . " = " . ":unique_id";
+
+        $statement = self::prepare("UPDATE $tableName SET $params WHERE $tableName . $sql");
+        $statement->bindValue(":photo", $this->photo['name']);
+        $statement->bindValue(":name", $this->name);
+        $statement->bindValue(":city", $this->city);
+        $statement->bindValue(":profesi", $this->profesi);
+        $statement->bindValue(":phone", $this->phone);
+        $statement->bindValue(":unique_id", $this->unique_id);
+
+        $tmp_file = $_FILES['photo']['tmp_name'];
+
+        $statement->execute();
+        if ($statement->execute()) {
+            move_uploaded_file($tmp_file, 'img/' . $this->photo['name']);
+        }
+
+        return true;
+    }
+
+    public function updateUser()
+    {
+        $tableName = $this->tableName();
+        $attributes = $this->attributes();
+        $params = implode(", ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
+        $sql = "unique_id" . " = " . ":unique_id";
+
+        $statement = self::prepare("UPDATE $tableName SET $params WHERE $tableName . $sql");
+
+        foreach ($attributes as $attribute) {
+            $statement->bindValue(":$attribute", $this->{$attribute});
+        }
+
+        $statement->bindValue(":unique_id", $this->unique_id);
+
+        $statement->execute();
+        return true;
     }
 
 
